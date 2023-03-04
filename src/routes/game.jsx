@@ -41,7 +41,7 @@ export default function Game() {
       function makeGuess(guess, letters) {
         if (isValidWord(guess, letters)) {
             const score = guess.length;
-            set(ref(db, `games/${gameId}/players/${playerId}/score`), data.players[playerId].score + score)
+            set(ref(db, `games/${gameId}/players/${playerId}/score`), (data.players[playerId]?.score ?? 0) + score)
 
             if (!data.words?.guess) set(ref(db, `games/${gameId}/words/${guess}`), playerId)
         }
