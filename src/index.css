@@ -1,14 +1,14 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
 
@@ -62,10 +62,12 @@ table th {
 } */
 
 .end-screen td:first-child {
-  font-weight: 700
+  font-weight: 700;
 }
 
-table, th, td {
+table,
+th,
+td {
   background-color: #eee;
   padding: 10px;
   font-size: 18px;
@@ -74,7 +76,6 @@ table, th, td {
 table td {
   border-radius: 10px;
 }
-
 
 button {
   background-color: #333;
@@ -88,7 +89,7 @@ button {
   background-color: #ddd;
 }
 
-button:disabled{
+button:disabled {
   cursor: not-allowed;
   opacity: 10%;
 }
@@ -96,10 +97,11 @@ button:disabled{
 .action-button {
   font-size: 20px;
   padding: 10px 20px;
-  margin-top:20px;
+  margin-top: 20px;
 }
 
-.share-game, .guess {
+.share-game,
+.guess {
   margin: 12px 0;
   width: 60%;
   display: flex;
@@ -107,14 +109,15 @@ button:disabled{
 
 input {
   flex: 1;
-  width:100%;
+  width: 100%;
   text-align: center;
   border-radius: 10px;
   border-width: 1px;
   outline: none;
 }
 
-.share-game button, .guess-button {
+.share-game button,
+.guess-button {
   margin-left: 5px;
   font-size: 12px;
   padding: 10px 20px;
@@ -131,12 +134,12 @@ h1 {
 }
 
 .scrabble {
-  width:90%;
-    flex-wrap: wrap;
-    margin: 16px 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  width: 90%;
+  flex-wrap: wrap;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
 }
 
 .scrabble div {
@@ -168,7 +171,6 @@ h1 {
   animation-duration: 1s;
   animation-iteration-count: infinite;
 }
-
 
 /* error */
 

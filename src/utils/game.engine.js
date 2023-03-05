@@ -25,8 +25,13 @@ export function loadUserData() {
   let playerName = localStorage.getItem("guessword_user_name");
 
   if (!playerId) {
-    localStorage.setItem("guessword_user_id", generateWord(4, "-"));
-    localStorage.setItem("guessword_user_name", generateWord());
+    playerId = generateWord(4, "-");
+    localStorage.setItem("guessword_user_id", playerId);
+  }
+
+  if (!playerName) {
+    playerName = generateWord();
+    localStorage.setItem("guessword_user_name", playerName);
   }
 
   return { playerId, playerName };
