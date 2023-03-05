@@ -24,8 +24,11 @@ export default function Lobby() {
   }, [newGameId]);
 
   useEffect(() => {
-    if (gameId && !data?.players?.[playerId])
+    if (gameId && !data?.players?.[playerId]) {
       joinLobby(gameId, playerId, playerName);
+    }
+
+    if (data?.time?.end) navigate("/game/" + gameId);
   }, [data]);
 
   return data ? (
