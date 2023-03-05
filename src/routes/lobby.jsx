@@ -29,9 +29,9 @@ export default function Lobby() {
   }, [data]);
 
   return data ? (
-    <div>
-      <div>guessword</div>
-      <table>
+    <div className="container">
+      <div className="title">guessword</div>
+      <table className="table">
         <thead>
           <tr>
             <th colSpan={2}>Players</th>
@@ -41,10 +41,11 @@ export default function Lobby() {
           {data.players &&
             Object.entries(data.players).map(([userId, userData]) => (
               <tr key={userId}>
-                <td>{userData.name}</td>
+                <td className="name">{userData.name}</td>
                 {playerId === userId && (
                   <td>
                     <button
+                      className="edit-button"
                       onClick={() => {
                         const newName = window.prompt(
                           "Please enter your name:"
@@ -61,13 +62,17 @@ export default function Lobby() {
             ))}
         </tbody>
       </table>
-      <div>
-        <input value={gameURL} />
-        <button onClick={() => navigator.clipboard.writeText(gameURL)}>
+      <div className="copy-container">
+        <input className="copy-input" value={gameURL} />
+        <button
+          className="copy-button"
+          onClick={() => navigator.clipboard.writeText(gameURL)}
+        >
           Copy
         </button>
       </div>
       <button
+        className="start-button"
         onClick={() => {
           startGame(gameId);
           navigate("/game/" + gameId);

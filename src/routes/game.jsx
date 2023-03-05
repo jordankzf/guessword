@@ -53,22 +53,31 @@ export default function Game() {
   return data ? (
     <div>
       <CountdownTimer endTime={data.time.end} callback={endGame} />
-      <div>
-        {data.letters.map((letter) => (
-          <div>{letter}</div>
+      <div className="letters-container">
+        {data.letters.map((letter, index) => (
+          <div key={index} className="letter">
+            {letter}
+          </div>
         ))}
       </div>
-      <table>
-        <th>Guessed Words</th>
-        {data?.words &&
-          Object.keys(data.words).map((word) => (
-            <tr>
-              <td>{word}</td>
-            </tr>
-          ))}
+      <table className="words-table">
+        <thead>
+          <tr>
+            <th>Guessed Words</th>
+          </tr>
+        </thead>
+        <tbody>
+          {data?.words &&
+            Object.keys(data.words).map((word, index) => (
+              <tr key={index}>
+                <td>{word}</td>
+              </tr>
+            ))}
+        </tbody>
       </table>
       <div>
         <input
+          className="guess-input"
           placeholder="Your guess"
           onChange={(e) => setGuess(e.target.value)}
         />
@@ -76,6 +85,7 @@ export default function Game() {
 
       <div>
         <button
+          className="guess-button"
           onClick={() =>
             makeGuess(gameId, playerId, data?.words, guess, data.letters)
           }

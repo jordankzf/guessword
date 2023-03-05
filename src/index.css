@@ -12,68 +12,229 @@ code {
     monospace;
 }
 
-.end-game-container {
+/* Game screen styles */
+.game-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
-  padding: 1rem;
-  box-sizing: border-box;
-  font-size: 1rem;
+  height: 100%;
+  background-color: #fff;
+  padding: 16px;
+  font-family: Roboto, sans-serif;
 }
 
-.end-game-heading {
-  font-size: 2rem;
-  font-weight: bold;
-  margin-bottom: 1rem;
+.letters-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin: 16px 0;
 }
 
-.end-game-leaderboard {
-  width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 1rem;
-}
-
-.end-game-leaderboard th {
-  text-align: left;
-  font-weight: bold;
-  padding: 0.5rem;
-  background-color: #f1f1f1;
-}
-
-.lobby-leaderboard-th {
-  text-align: center;
-  font-weight: bold;
-  padding: 0.5rem;
-  background-color: #f1f1f1;
-}
-
-.end-game-leaderboard td {
-  text-align: left;
-  padding: 0.5rem;
-  border-bottom: 1px solid #ddd;
-}
-
-.end-game-button {
+.letter {
   display: flex;
   justify-content: center;
+  align-items: center;
+  width: 56px;
+  height: 56px;
+  margin: 8px;
+  border-radius: 50%;
+  font-size: 24px;
+  font-weight: bold;
+  color: #fff;
+  background-color: #3f51b5;
+}
+
+.words-table {
   width: 100%;
+  margin: 16px 0;
+  border-collapse: collapse;
+  border: 1px solid #ccc;
 }
 
-.end-game-button button {
-  padding: 1rem 2rem;
-  font-size: 1.2rem;
-  border: none;
-  background-color: #f1f1f1;
-  border-radius: 0.5rem;
-  cursor: pointer;
+.words-table th, .words-table td {
+  padding: 8px;
+  border: 1px solid #ccc;
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  color: #3f51b5;
 }
 
-.end-game-button button:focus {
+.guess-input {
+  width: 100%;
+  height: 48px;
+  padding: 16px;
+  margin-bottom: 16px;
+  border: 2px solid #3f51b5;
+  border-radius: 8px;
+  font-size: 18px;
+  color: #3f51b5;
   outline: none;
 }
 
+.guess-button {
+  width: 100%;
+  height: 48px;
+  border: none;
+  border-radius: 8px;
+  background-color: #3f51b5;
+  font-size: 18px;
+  font-weight: bold;
+  color: #fff;
+  cursor: pointer;
+}
+
+/* lobby screen */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  background-color: #fff;
+}
+
+.title {
+  font-size: 36px;
+  font-weight: 600;
+  margin-top: 32px;
+  margin-bottom: 16px;
+}
+
+.table {
+  border-collapse: collapse;
+  margin-bottom: 16px;
+  width: 100%;
+  max-width: 400px;
+  background-color: #f2f2f2;
+  border-radius: 4px;
+}
+
+.name {
+  font-size: 24px;
+  font-weight: 500;
+  padding: 16px;
+  border-bottom: 1px solid #ccc;
+}
+
+.edit-button {
+  background-color: transparent;
+  color: #333;
+  font-size: 24px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  margin-right: 8px;
+}
+
+.copy-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  width: 100%;
+  max-width: 400px;
+}
+
+.copy-input {
+  flex-grow: 1;
+  font-size: 24px;
+  padding: 16px;
+  border: none;
+  outline: none;
+  background-color: #f2f2f2;
+  border-radius: 4px;
+  margin-right: 8px;
+}
+
+.copy-button {
+  background-color: #007bff;
+  color: #fff;
+  font-size: 24px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 16px 24px;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.copy-button:hover {
+  background-color: #0069d9;
+}
+
+.start-button {
+  background-color: #007bff;
+  color: #fff;
+  font-size: 24px;
+  border: none;
+  outline: none;
+}
+
+/* end screen */
+
+.end-screen {
+  background-color: #fff;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.end-screen h2 {
+  margin-top: 50px;
+  font-size: 32px;
+  font-weight: bold;
+}
+
+.end-screen table {
+  width: 90%;
+  margin-top: 40px;
+  text-align: center;
+  border-collapse: collapse;
+}
+
+.end-screen table th,
+.end-screen table td {
+  padding: 10px;
+  border: 1px solid #ddd;
+}
+
+.end-screen table th {
+  background-color: #eee;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.end-screen table td {
+  font-size: 18px;
+}
+
+.end-screen table td:first-child {
+  font-weight: bold;
+}
+
+.end-screen button {
+  margin-top: 30px;
+  padding: 10px 20px;
+  background-color: #333;
+  color: #fff;
+  font-size: 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.end-screen button:hover {
+  background-color: #555;
+}
 
 /* @tailwind base;
 @tailwind components;

@@ -14,7 +14,7 @@ export default function End() {
   const navigate = useNavigate();
 
   return data ? (
-    <div>
+    <div className="end-screen">
       <div>time's up!</div>
       <table>
         <thead>
