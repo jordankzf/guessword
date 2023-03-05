@@ -111,6 +111,7 @@ input {
   text-align: center;
   border-radius: 10px;
   border-width: 1px;
+  outline: none;
 }
 
 .share-game button, .guess-button {
@@ -212,7 +213,3 @@ h1 {
     transform: translateX(0);
   }
 }
-
-/* @tailwind base;
-@tailwind components;
-@tailwind utilities; */

@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
-import { onValue, ref, set, off, update, increment } from "firebase/database";
+import { onValue, ref, off, update, increment } from "firebase/database";
 import db from "./firebase.service";
-import { v4 as uuidv4 } from "uuid";
 import dictionary from "an-array-of-english-words";
 
 function createNewGame() {
@@ -26,7 +25,7 @@ export function loadUserData() {
   let playerName = localStorage.getItem("guessword_user_name");
 
   if (!playerId) {
-    localStorage.setItem("guessword_user_id", uuidv4());
+    localStorage.setItem("guessword_user_id", generateWord(4, "-"));
     localStorage.setItem("guessword_user_name", generateWord());
   }
 
