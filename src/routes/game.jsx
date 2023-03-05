@@ -1,5 +1,5 @@
 import { useParams, useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useGameData, loadUserData, makeGuess } from "../utils/game.engine";
 import Loading from "../components/Loading";
 import CountdownTimer from "../components/CountdownTimer";
