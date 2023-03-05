@@ -89,12 +89,11 @@ function generateLetters() {
 
 export function startGame(gameId) {
   const now = Date.now();
-  set(ref(db, `games/${gameId}/time/start`), now);
-  set(ref(db, `games/${gameId}/time/end`), now + 60000);
+  write(gameId, "time/end", now + 60000);
 }
 
 export function joinLobby(gameId, playerId, playerName) {
-  set(ref(db, `games/${gameId}/players/${playerId}`), {
+  write(gameId, `players/${playerId}`, {
     name: playerName,
     score: 0,
   });
@@ -119,7 +118,7 @@ export function useGameData(initialGameId) {
       if (!data) {
         const newGameId = initialGameId ?? generateWord(3, "-");
         setGameId(newGameId);
-        set(ref(db, "games/" + newGameId), createNewGame());
+        write(newGameId, "", createNewGame());
       }
       setData(data);
     });
@@ -160,6 +159,11 @@ export function makeGuess(gameId, playerId, words, guess, letters) {
     updates[`games/${gameId}/players/${playerId}/score`] = increment(score);
     update(ref(db), updates);
 
-    if (!words?.guess) set(ref(db, `games/${gameId}/words/${guess}`), playerId);
+    if (!words?.guess) {
+      write(gameId, `words/${guess}`, playerId);
+      return true;
+    }
+
+    return false;
   }
 }

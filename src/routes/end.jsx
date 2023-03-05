@@ -1,12 +1,5 @@
 import { useParams, useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
-import {
-  startGame,
-  useGameData,
-  loadUserData,
-  joinLobby,
-  makeGuess,
-} from "../utils/game.engine";
+import { useGameData } from "../utils/game.engine";
 
 export default function End() {
   const { gameId } = useParams();

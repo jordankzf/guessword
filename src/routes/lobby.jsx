@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import {
   startGame,
@@ -9,7 +9,6 @@ import {
 } from "../utils/game.engine";
 
 export default function Lobby() {
-  // const [name, setName] = useState("");
   const { gameId } = useParams();
   const { playerId, playerName } = loadUserData();
   const { gameId: newGameId, data } = useGameData(gameId);
@@ -69,7 +68,10 @@ export default function Lobby() {
         <input className="copy-input" value={gameURL} />
         <button
           className="copy-button"
-          onClick={() => navigator.clipboard.writeText(gameURL)}
+          onClick={() => {
+            navigator.clipboard.writeText(gameURL);
+            alert("Copied!");
+          }}
         >
           Copy
         </button>
