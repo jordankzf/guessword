@@ -11,3 +11,70 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.end-game-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  padding: 1rem;
+  box-sizing: border-box;
+  font-size: 1rem;
+}
+
+.end-game-heading {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.end-game-leaderboard {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1rem;
+}
+
+.end-game-leaderboard th {
+  text-align: left;
+  font-weight: bold;
+  padding: 0.5rem;
+  background-color: #f1f1f1;
+}
+
+.lobby-leaderboard-th {
+  text-align: center;
+  font-weight: bold;
+  padding: 0.5rem;
+  background-color: #f1f1f1;
+}
+
+.end-game-leaderboard td {
+  text-align: left;
+  padding: 0.5rem;
+  border-bottom: 1px solid #ddd;
+}
+
+.end-game-button {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.end-game-button button {
+  padding: 1rem 2rem;
+  font-size: 1.2rem;
+  border: none;
+  background-color: #f1f1f1;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+.end-game-button button:focus {
+  outline: none;
+}
+
+
+/* @tailwind base;
+@tailwind components;
+@tailwind utilities; */

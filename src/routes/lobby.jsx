@@ -1,84 +1,83 @@
-import db from "../utils/firebase";
-import { v4 as uuidv4 } from "uuid";
-import { ref, set } from "firebase/database";
-import { useState } from "react";
-import { useNavigate } from 'react-router-dom';
-
-
-// const gamesRef = db.ref('games');
-
-function generateLetters() {
-  const vowels = ["a", "e", "i", "o", "u"];
-  const consonants = [
-    "b",
-    "c",
-    "d",
-    "f",
-    "g",
-    "h",
-    "j",
-    "k",
-    "l",
-    "m",
-    "n",
-    "p",
-    "q",
-    "r",
-    "s",
-    "t",
-    "v",
-    "w",
-    "x",
-    "y",
-    "z",
-  ];
-
-  const letters = [];
-
-  // Add at least 2 vowels and 2 consonants
-  for (let i = 0; i < 2; i++) {
-    letters.push(vowels[Math.floor(Math.random() * vowels.length)]);
-    letters.push(consonants[Math.floor(Math.random() * consonants.length)]);
-  }
-
-  // Add remaining letters
-  for (let i = 0; i < 5; i++) {
-    const isVowel = Math.random() < 0.5;
-    const sourceArray = isVowel ? vowels : consonants;
-    letters.push(sourceArray[Math.floor(Math.random() * sourceArray.length)]);
-  }
-
-  return letters;
-}
-
-function createNewGame(hostId, hostName) {
-  const newGame = {
-    "status": "PENDING",
-    "letters": generateLetters(),
-    "time": null,
-    "link": uuidv4(),
-    "words": {},
-    "host": hostId,
-    "players": {
-      [hostId]: {
-        "name": hostName,
-        "score": 0
-      }
-    }
-  }
-  return newGame
-}
+import { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import {
+  startGame,
+  useGameData,
+  loadUserData,
+  joinLobby,
+  write,
+} from "../utils/game.engine";
 
 export default function Lobby() {
-  const [name, setName] = useState('');
+  // const [name, setName] = useState("");
+  const { gameId } = useParams();
+  const { playerId, playerName } = loadUserData();
+  const { gameId: newGameId, data } = useGameData(gameId);
   const navigate = useNavigate();
+  const gameURL = `${window.location.origin}/${gameId}`;
 
-  return <div>
-    <label>Your name</label>
-    <input onChange={(e) => setName(e.target.value)} type="text" />
-    <button onClick={() => {
-      const gameId = uuidv4();
-      set(ref(db, 'games/' + gameId), createNewGame(uuidv4(), name))
-      navigate("/game/" + gameId)
-    }}>Create new game</button></div>
+  // Redirect host to newly created lobby
+  useEffect(() => {
+    if (!gameId && newGameId) {
+      navigate("/" + newGameId);
+    }
+  }, [newGameId]);
+
+  useEffect(() => {
+    if (gameId && !data?.players?.[playerId])
+      joinLobby(gameId, playerId, playerName);
+  }, [data]);
+
+  return data ? (
+    <div>
+      <div>guessword</div>
+      <table>
+        <thead>
+          <tr>
+            <th colSpan={2}>Players</th>
+          </tr>
+        </thead>
+        <tbody>
+          {data.players &&
+            Object.entries(data.players).map(([userId, userData]) => (
+              <tr key={userId}>
+                <td>{userData.name}</td>
+                {playerId === userId && (
+                  <td>
+                    <button
+                      onClick={() => {
+                        const newName = window.prompt(
+                          "Please enter your name:"
+                        );
+                        localStorage.setItem("guessword_user_name", newName);
+                        write(gameId, `players/${playerId}/name`, newName);
+                      }}
+                    >
+                      ✏️
+                    </button>
+                  </td>
+                )}
+              </tr>
+            ))}
+        </tbody>
+      </table>
+      <div>
+        <input value={gameURL} />
+        <button onClick={() => navigator.clipboard.writeText(gameURL)}>
+          Copy
+        </button>
+      </div>
+      <button
+        onClick={() => {
+          startGame(gameId);
+          navigate("/game/" + gameId);
+        }}
+        disabled={playerId !== data.host}
+      >
+        Start game
+      </button>
+    </div>
+  ) : (
+    <div>Loading</div>
+  );
 }
