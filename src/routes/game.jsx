@@ -38,7 +38,9 @@ export default function Game() {
       <CountdownTimer endTime={data?.time?.end} callback={endGame} />
       <div className="scrabble">
         {data.letters.map((letter, index) => (
-          <div key={index}>{letter}</div>
+          <div onClick={() => setGuess(guess + letter)} key={index}>
+            {letter}
+          </div>
         ))}
       </div>
       <table>
