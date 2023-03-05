@@ -1,31 +1,25 @@
-# Create React App
+# Guess the Word Multiplayer Game
 
-This directory is a brief example of a [Create React App](https://github.com/facebook/create-react-app) site that can be deployed to Vercel with zero configuration.
+_guesswork...guessword_ geddit? Okay I'll admit it, I'm bad with names.
 
-## Deploy Your Own
+## Summary
 
-Deploy your own Create React App project with Vercel.
+Live preview: https://guessword-game.vercel.app/
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/vercel/vercel/tree/main/examples/create-react-app&template=create-react-app)
+Thanks for the fun take-home exercise! I appreciate and respect companies who opt for take-home assessments instead of archaic whiteboard interviews. Take-homes are much more realistic, which helps paint a better picture of your candidate's overall skills.
 
-_Live Example: https://create-react-template.vercel.app/_
+My wireframe sketch:
+<img src="preview.png" alt="Poorly drawn wireframe" width="685"/>
 
-## Available Scripts
+I used only React and react-router-dom, to keep things short and simple.
 
-In the project directory, you can run:
+## Logic
 
-### `npm start`
+1. When you visit the root directory /, a new lobby is generated and the user is redirected there as the host.
+2. If you visit /:gameId, you are brought to the lobby (if exists), otherwise a new lobby is created with the given name.
 
-Runs the app in the development mode. Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Set-up intructions
 
-The page will reload when you make changes. You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode. See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.
-
-It correctly bundles React in production mode and optimizes the build for the best performance. The build is minified and the filenames include the hashes.
+1. `pnpm i`
+2. `pnpm start`
+3. Navigate to http://localhost:3000/
