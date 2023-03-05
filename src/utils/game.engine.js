@@ -3,6 +3,7 @@ import { onValue, ref, off, update, increment } from "firebase/database";
 import db from "./firebase.service";
 import dictionary from "an-array-of-english-words";
 
+// Scaffolding for a new game
 function createNewGame() {
   const { playerId, playerName } = loadUserData();
   const newGame = {
@@ -20,6 +21,7 @@ function createNewGame() {
   return newGame;
 }
 
+// Use localStorage to save and retrieve userId and username
 export function loadUserData() {
   let playerId = localStorage.getItem("guessword_user_id");
   let playerName = localStorage.getItem("guessword_user_name");
@@ -37,6 +39,10 @@ export function loadUserData() {
   return { playerId, playerName };
 }
 
+// English version of uuid lol
+// I would use diceware for "nicer" words,
+// but since we already have "an-array-of-english-words"
+// imported, let's use that instead.
 function generateWord(words = "1", separator = "") {
   const length = dictionary.length;
   const output = [];
@@ -47,6 +53,7 @@ function generateWord(words = "1", separator = "") {
   return output.join(separator);
 }
 
+// Generate 9 random letters
 function generateLetters() {
   const vowels = ["a", "e", "i", "o", "u"];
   const consonants = [
@@ -91,11 +98,14 @@ function generateLetters() {
   return letters;
 }
 
+// Start the game
 export function startGame(gameId) {
   const now = Date.now();
+  // Game lasts 60 seconds from start time
   write(gameId, "time/end", now + 60000);
 }
 
+// Enter a lobby
 export function joinLobby(gameId, playerId, playerName) {
   write(gameId, `players/${playerId}`, {
     name: playerName,
@@ -103,12 +113,15 @@ export function joinLobby(gameId, playerId, playerName) {
   });
 }
 
+// Write to the firebase real-time database
 export function write(gameId, targetPath, newValue) {
   const updates = {};
   updates[`games/${gameId}/${targetPath}`] = newValue;
+  // Use update instead of set, to allow concurrency
   update(ref(db), updates);
 }
 
+// Custom hook to listen to game data (reactive!)
 export function useGameData(initialGameId) {
   const [gameId, setGameId] = useState(initialGameId);
   const [data, setData] = useState(null);
@@ -119,7 +132,9 @@ export function useGameData(initialGameId) {
     // Set up a listener for changes to the "games" node
     onValue(gamesRef, (snapshot) => {
       const data = snapshot.val();
+      // If the lobby doesn't exist, create it
       if (!data) {
+        // If a gameId isn't provided, generate a random one
         const newGameId = initialGameId ?? generateWord(3, "-");
         setGameId(newGameId);
         write(newGameId, "", createNewGame());
@@ -131,11 +146,12 @@ export function useGameData(initialGameId) {
     return () => {
       off(gamesRef);
     };
-  }, [gameId]);
+  }, [gameId, initialGameId]);
 
   return { gameId, data };
 }
 
+// Check if the guessed word comprises of the letters given
 function isValidWord(guess, letters) {
   // Convert the guess and letters to lowercase
   guess = guess.toLowerCase();
@@ -152,22 +168,21 @@ function isValidWord(guess, letters) {
     }
   }
 
-  // Return true if all the letters in the guess are in the letters array
-  if (dictionary.indexOf(guess) !== -1) return true;
+  return true;
 }
 
+// Make a guess
 export function makeGuess(gameId, playerId, words, guess, letters) {
-  if (isValidWord(guess, letters)) {
-    const score = guess.length;
-    const updates = {};
-    updates[`games/${gameId}/players/${playerId}/score`] = increment(score);
-    update(ref(db), updates);
-
+  // The guessed word corresponds with the letters given AND is an English word
+  if (isValidWord(guess, letters) && dictionary.indexOf(guess) !== -1) {
+    // Credit the player if it hasn't been guessed before
     if (!words?.guess) {
       write(gameId, `words/${guess}`, playerId);
-      return true;
+      write(gameId, `players/${playerId}/score`, increment(guess.length));
     }
-
-    return false;
+    // The guess is correct even if it has been guessed before
+    return true;
   }
+  // Incorrect guess
+  return false;
 }

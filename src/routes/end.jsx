@@ -34,6 +34,7 @@ export default function End() {
         </tbody>
       </table>
       <div>
+        {/* Return to root to generate a new lobby */}
         <button className="action-button" onClick={() => navigate("/")}>
           New Lobby
         </button>

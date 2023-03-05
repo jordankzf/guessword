@@ -1,6 +1,8 @@
 import { initializeApp } from "firebase/app";
 import { getDatabase } from "firebase/database";
 
+// This shouldn't be here
+// Normally, I would use .env for security
 const firebaseConfig = {
   apiKey: "AIzaSyAUXXqEmYfdp_G8LmJ_UnoZ_eIhmPNteCM",
   authDomain: "guessword-game.firebaseapp.com",

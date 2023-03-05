@@ -12,15 +12,18 @@ export default function CountdownTimer({ endTime, callback }) {
       } else {
         setRemainingTime(0);
         clearInterval(intervalId);
+        // Handling when the timer runs out
         callback();
       }
-    }, 10);
+      // Change this to 10 or 100 milliseconds if performance is an issue
+    }, 1);
 
     return () => {
       clearInterval(intervalId);
     };
   }, [endTime]);
 
+  // Pad for even formatting SS:MMM (S = seconds, M = milliseconds)
   const seconds = String(Math.floor(remainingTime / 1000)).padStart(2, "0");
   const milliseconds = String(remainingTime % 1000).padStart(3, "0");
 

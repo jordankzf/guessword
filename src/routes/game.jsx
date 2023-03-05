@@ -12,10 +12,6 @@ export default function Game() {
   const navigate = useNavigate();
   const [nudgeWrong, setNudgeWrong] = useState(false);
 
-  function endGame() {
-    navigate("/end/" + gameId);
-  }
-
   function validateInput() {
     const success = makeGuess(
       gameId,
@@ -24,6 +20,7 @@ export default function Game() {
       guess,
       data.letters
     );
+    // Violently shake the input field if the user's guess is incorrect
     if (!success) {
       setNudgeWrong(true);
       setTimeout(() => {
@@ -35,9 +32,15 @@ export default function Game() {
 
   return data ? (
     <div className="main-container">
-      <CountdownTimer endTime={data?.time?.end} callback={endGame} />
+      <CountdownTimer
+        endTime={data?.time?.end}
+        // Transition to end screen once the timer runs out
+        callback={() => navigate("/end/" + gameId)}
+      />
       <div className="scrabble">
+        {/* Loop to populate screen with letter tiles */}
         {data.letters.map((letter, index) => (
+          // Users may click on tiles instead of typing
           <div onClick={() => setGuess(guess + letter)} key={index}>
             {letter}
           </div>
@@ -58,6 +61,7 @@ export default function Game() {
             ))
           ) : (
             <tr>
+              {/* Placeholder when there are no guesses */}
               <td>the clock's a-ticking...</td>
             </tr>
           )}
@@ -65,10 +69,11 @@ export default function Game() {
       </table>
       <div className="guess">
         <input
-          className={`guess-input ${nudgeWrong ? "wrong-answer" : ""}`}
+          className={`guess-input ${nudgeWrong && "wrong-answer"}`}
           placeholder="Your guess"
           onChange={(e) => setGuess(e.target.value)}
           value={guess}
+          // Attempt at accessibility
           onKeyDown={(e) => {
             if (e.key === "Enter") validateInput();
           }}
