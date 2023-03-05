@@ -40,16 +40,6 @@ export default function Game() {
   const { playerId, playerName } = loadUserData();
   const navigate = useNavigate();
   const [nudgeWrong, setNudgeWrong] = useState(false);
-  // const [answerWrong, setAnswerWrong] = useState(false);
-
-  // useEffect(() => {
-  //   if (answerWrong) {
-  //     setNudgeWrong(true);
-  //     setTimeout(() => {
-  //       setNudgeWrong(false);
-  //     }, 500);
-  //   }
-  // }, [answerWrong]);
 
   function endGame() {
     navigate("/end/" + gameId);
@@ -75,14 +65,12 @@ export default function Game() {
   return data ? (
     <div>
       <CountdownTimer endTime={data.time.end} callback={endGame} />
-      <div className="letters-container">
+      <div>
         {data.letters.map((letter, index) => (
-          <div key={index} className="letter">
-            {letter}
-          </div>
+          <div key={index}>{letter}</div>
         ))}
       </div>
-      <table className="words-table">
+      <table>
         <thead>
           <tr>
             <th>Guessed Words</th>
@@ -108,12 +96,9 @@ export default function Game() {
           }}
         />
       </div>
-
       <div>
-        <button className="guess-button" onClick={validateInput}>
-          Guess!
-        </button>
-      </div>
+        <button onClick={validateInput}>Guess!</button>
+      </div>{" "}
     </div>
   ) : (
     <div>Loading...</div>

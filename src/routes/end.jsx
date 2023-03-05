@@ -7,9 +7,9 @@ export default function End() {
   const navigate = useNavigate();
 
   return data ? (
-    <div className="end-screen">
-      <div>time's up!</div>
-      <table>
+    <div className="main-container">
+      <h1>time's up!</h1>
+      <table className="end-screen">
         <thead>
           <tr>
             <th>No.</th>
@@ -30,10 +30,12 @@ export default function End() {
         </tbody>
       </table>
       <div>
-        <button onClick={() => navigate("/")}>New Lobby</button>
+        <button className="action-button" onClick={() => navigate("/")}>
+          New Lobby
+        </button>
       </div>
     </div>
   ) : (
-    <div>Loading</div>
+    <div>Loading...</div>
   );
 }

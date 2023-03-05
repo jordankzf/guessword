@@ -31,23 +31,23 @@ export default function Lobby() {
   }, [data]);
 
   return data ? (
-    <div className="container">
-      <div className="title">guessword</div>
-      <table className="table">
+    <div className="main-container">
+      <h1>guessword</h1>
+      <table>
         <thead>
           <tr>
-            <th colSpan={2}>Players</th>
+            <th colSpan={3}>Players</th>
           </tr>
         </thead>
         <tbody>
           {data.players &&
             Object.entries(data.players).map(([userId, userData]) => (
               <tr key={userId}>
-                <td className="name">{userData.name}</td>
+                {data.host === userId && <td>👑</td>}
+                <td>{userData.name}</td>
                 {playerId === userId && (
                   <td>
                     <button
-                      className="edit-button"
                       onClick={() => {
                         const newName = window.prompt(
                           "Please enter your name:"
@@ -64,10 +64,9 @@ export default function Lobby() {
             ))}
         </tbody>
       </table>
-      <div className="copy-container">
-        <input className="copy-input" value={gameURL} />
+      <div className="share-game">
+        <input value={gameId} />
         <button
-          className="copy-button"
           onClick={() => {
             navigator.clipboard.writeText(gameURL);
             alert("Copied!");
@@ -77,17 +76,17 @@ export default function Lobby() {
         </button>
       </div>
       <button
-        className="start-button"
         onClick={() => {
           startGame(gameId);
           navigate("/game/" + gameId);
         }}
         disabled={playerId !== data.host}
+        className="action-button"
       >
         Start game
       </button>
     </div>
   ) : (
-    <div>Loading</div>
+    <div>Loading...</div>
   );
 }
