@@ -176,7 +176,7 @@ export function makeGuess(gameId, playerId, words, guess, letters) {
   // The guessed word corresponds with the letters given AND is an English word
   if (isValidWord(guess, letters) && dictionary.indexOf(guess) !== -1) {
     // Credit the player if it hasn't been guessed before
-    if (!words?.guess) {
+    if (!words?.[guess]) {
       write(gameId, `words/${guess}`, playerId);
       write(gameId, `players/${playerId}/score`, increment(guess.length));
     }
