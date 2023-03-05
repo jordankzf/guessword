@@ -1,5 +1,6 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useGameData } from "../utils/game.engine";
+import Loading from "../components/Loading";
 
 export default function End() {
   const { gameId } = useParams();
@@ -23,7 +24,10 @@ export default function End() {
             .map((player, index) => (
               <tr key={player.name}>
                 <td>{index + 1}</td>
-                <td>{player.name}</td>
+                <td>
+                  {index === 0 && "🎉 "}
+                  {player.name}
+                </td>
                 <td>{player.score}</td>
               </tr>
             ))}
@@ -36,6 +40,6 @@ export default function End() {
       </div>
     </div>
   ) : (
-    <div>Loading...</div>
+    <Loading />
   );
 }

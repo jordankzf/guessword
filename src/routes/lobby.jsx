@@ -7,6 +7,7 @@ import {
   joinLobby,
   write,
 } from "../utils/game.engine";
+import Loading from "../components/Loading";
 
 export default function Lobby() {
   const { gameId } = useParams();
@@ -36,36 +37,40 @@ export default function Lobby() {
       <table>
         <thead>
           <tr>
-            <th colSpan={3}>Players</th>
+            <th>Players</th>
           </tr>
         </thead>
         <tbody>
           {data.players &&
             Object.entries(data.players).map(([userId, userData]) => (
               <tr key={userId}>
-                {data.host === userId && <td>👑</td>}
-                <td>{userData.name}</td>
-                {playerId === userId && (
-                  <td>
+                <td>
+                  {data.host === userId && "👑 "}
+                  {userData.name}{" "}
+                  {playerId === userId && (
                     <button
+                      className="pencil"
                       onClick={() => {
                         const newName = window.prompt(
                           "Please enter your name:"
                         );
-                        localStorage.setItem("guessword_user_name", newName);
-                        write(gameId, `players/${playerId}/name`, newName);
+
+                        if (newName) {
+                          localStorage.setItem("guessword_user_name", newName);
+                          write(gameId, `players/${playerId}/name`, newName);
+                        }
                       }}
                     >
                       ✏️
                     </button>
-                  </td>
-                )}
+                  )}
+                </td>
               </tr>
             ))}
         </tbody>
       </table>
       <div className="share-game">
-        <input value={gameId} />
+        <input readOnly value={gameId} />
         <button
           onClick={() => {
             navigator.clipboard.writeText(gameURL);
@@ -87,6 +92,6 @@ export default function Lobby() {
       </button>
     </div>
   ) : (
-    <div>Loading...</div>
+    <Loading />
   );
 }

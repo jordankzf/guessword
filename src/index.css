@@ -20,11 +20,20 @@ code {
   justify-content: center;
 }
 
+/* tablets and desktops */
+@media screen and (min-width: 1024px) {
+  .main-container {
+    margin: auto;
+    width: 50%;
+  }
+}
+
 table {
   text-align: center;
   width: 90%;
   border-collapse: collapse;
   border-radius: 10px;
+  table-layout: fixed;
 }
 
 table th {
@@ -33,6 +42,24 @@ table th {
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
 }
+
+/* CSS needs a proper way to round table corners lol */
+.end-screen th:nth-child(1) {
+  border-top-right-radius: 0;
+}
+
+.end-screen th:nth-child(2) {
+  border-radius: 0;
+}
+
+.end-screen th:nth-child(3) {
+  border-top-left-radius: 0;
+}
+
+/* table thead tr th:first th:last {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+} */
 
 .end-screen td:first-child {
   font-weight: 700
@@ -57,6 +84,10 @@ button {
   cursor: pointer;
 }
 
+.pencil {
+  background-color: #ddd;
+}
+
 button:disabled{
   cursor: not-allowed;
   opacity: 10%;
@@ -68,28 +99,73 @@ button:disabled{
   margin-top:20px;
 }
 
-.share-game {
+.share-game, .guess {
   margin: 12px 0;
-  width: 50%;
+  width: 60%;
   display: flex;
 }
 
-.share-game input {
+input {
   flex: 1;
+  width:100%;
   text-align: center;
   border-radius: 10px;
   border-width: 1px;
 }
 
-.share-game button {
-  margin-left: 10px;
+.share-game button, .guess-button {
+  margin-left: 5px;
   font-size: 12px;
   padding: 10px 20px;
 }
 
 h1 {
-  font-size: 5em;
+  font-size: 4em;
   margin: 0 0 12px 0;
+}
+
+.countdown-timer {
+  width: 220px;
+  text-align: left;
+}
+
+.scrabble {
+  width:90%;
+    flex-wrap: wrap;
+    margin: 16px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.scrabble div {
+  align-items: center;
+  background-color: #333;
+  border-radius: 10px;
+  color: #fff;
+  display: flex;
+  font-size: 24px;
+  font-weight: 700;
+  height: 56px;
+  justify-content: center;
+  margin: 8px;
+  width: 56px;
+}
+
+@keyframes flash {
+  from {
+    color: red;
+  }
+  to {
+    color: black;
+  }
+}
+
+/* Apply the animation to the text */
+.flash-red {
+  animation-name: flash;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
 }
 
 
