@@ -135,7 +135,8 @@ export function useGameData(initialGameId) {
       // If the lobby doesn't exist, create it
       if (!data) {
         // If a gameId isn't provided, generate a random one
-        const newGameId = initialGameId ?? generateWord(3, "-");
+        // nullish coalescing operator ?? considers an empty string "" as TRUE
+        const newGameId = initialGameId ? initialGameId : generateWord(3, "-");
         setGameId(newGameId);
         write(newGameId, "", createNewGame());
       }
