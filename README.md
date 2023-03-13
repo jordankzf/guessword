@@ -6,8 +6,6 @@ _guesswork...guessword_ geddit? Okay I'll admit it, I'm bad with names.
 
 Live preview: https://guessword-game.vercel.app/
 
-Thanks for the fun take-home exercise! I appreciate and respect companies who opt for take-home assessments instead of archaic whiteboard interviews. Take-homes are much more realistic, which helps paint a better picture of your candidate's overall skills.
-
 My wireframe sketch:
 <img src="preview.png" alt="Poorly drawn wireframe" width="685"/>
 
