@@ -175,10 +175,7 @@ function isValidWord(guess, letters) {
 // Make a guess
 export function makeGuess(gameId, playerId, words, guess, letters) {
   // The guessed word corresponds with the letters given AND is an English word
-  // if (isValidWord(guess, letters) && dictionary.indexOf(guess) !== -1) {
-
-  // Temporarily disable dictionary verification for Guy to test
-  if (isValidWord(guess, letters)) {
+  if (isValidWord(guess, letters) && dictionary.indexOf(guess) !== -1) {
     // Credit the player if it hasn't been guessed before
     if (!words?.[guess]) {
       write(gameId, `words/${guess}`, playerId);
